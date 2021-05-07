@@ -10,10 +10,13 @@ import java.util.List;
 
 
 
+
+
 public class RubricaManager {
 	static List<ContattoNoMap> contatti = new ArrayList<>();
 	
-	public static void readContact() throws IOException {
+	public static List<ContattoNoMap> readContact() throws IOException {
+		contatti.clear();
 		FileReader fileReader = new FileReader("C:\\Users\\Padawan02\\Desktop\\temp\\rubrica1.csv");
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
 		while ( bufferedReader.ready()) {
@@ -30,6 +33,7 @@ public class RubricaManager {
 				contatti.add(contatto);
 		}
 		fileReader.close();
+		return contatti;
 	}
 	
 	public static List<ContattoNoMap> cercaContatto(String attributo,String p) {
@@ -60,5 +64,24 @@ public class RubricaManager {
 		}
 		
 	return omonimi;
+	}
+	
+	public static void newContact(String nome,String cognome,String email,String telefono) {
+		
+		ContattoNoMap c = new ContattoNoMap();
+		boolean flag = false;
+		c.setNome(nome);
+		c.setCognome(cognome);
+		c.setTelefono(telefono);
+		if (telefono!=null && !telefono.isEmpty())
+			c.setEmail(email);
+
+		
+			contatti.add(c);
+
+	}
+	
+	public static List<ContattoNoMap> getContatti(){
+		return contatti;
 	}
 }
