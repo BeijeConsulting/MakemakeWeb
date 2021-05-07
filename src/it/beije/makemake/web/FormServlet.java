@@ -36,7 +36,7 @@ public class FormServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("POST " + request.getRequestURL());
-
+	
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		System.out.println("username : " + username);
