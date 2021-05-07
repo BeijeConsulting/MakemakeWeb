@@ -47,6 +47,11 @@ public class TestServlet extends HttpServlet {
 		System.out.println("fname : " + fname);
 		System.out.println("lname : " + lname);
 		
+		//..... elaborazione
+		// accedere al DB
+		// ricerco su rubrica un contatto con  fname & lname
+		
+		
 		response.getWriter().append(htmlStart)
 		.append("fname : ").append(fname).append("<br>").append("lname : ").append(lname)
 		.append(htmlEnd);
