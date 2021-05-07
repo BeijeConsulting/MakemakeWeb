@@ -17,16 +17,11 @@ public class TestServlet extends HttpServlet {
 	private static final String htmlStart = "<HTML><HEAD><TITLE>MakemakeWeb</TITLE></HEAD><BODY>";
 	private static final String htmlEnd = "</BODY></HTML>";
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+  
     public TestServlet() {
         super();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("GET " + request.getRequestURL());
 		
