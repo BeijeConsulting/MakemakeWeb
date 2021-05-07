@@ -7,20 +7,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.Session;
+
+import rubrica.Contatto;
+import rubrica.HCriteria;
+import session.SessionManager;
+
 /**
  * Servlet implementation class TestServlet
  */
-@WebServlet("/test")
-public class TestServlet extends HttpServlet {
+@WebServlet("/aggiungi")
+public class AddContact extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private static final String htmlStart = "<HTML><HEAD><TITLE>MakemakeWeb</TITLE></HEAD><BODY>";
-	private static final String htmlEnd = "</BODY></HTML>";
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TestServlet() {
+    public AddContact() {
         super();
     }
 
@@ -29,16 +32,8 @@ public class TestServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("GET " + request.getRequestURL());
+		response.sendRedirect("aggiungi.html");
 		
-		response.getWriter().append(htmlStart).append("<h1>Sono un Titolo</h1><p>questa è una prova</p><br>")
-		.append("<form action=\"test\" method=\"post\">\r\n" + 
-				"		  <label for=\"fname\">First name:</label><br>\r\n" + 
-				"		  <input type=\"text\" name=\"fname\"><br>\r\n" + 
-				"		  <label for=\"lname\">Last name:</label><br>\r\n" + 
-				"		  <input type=\"text\" name=\"lname\"><br><br>\r\n" + 
-				"		  <input type=\"submit\" value=\"Submit\">\r\n" + 
-				"		</form>")
-		.append(htmlEnd);
 	}
 
 	/**
@@ -49,12 +44,19 @@ public class TestServlet extends HttpServlet {
 		
 		String fname = request.getParameter("fname");
 		String lname = request.getParameter("lname");
-		System.out.println("fname : " + fname);
-		System.out.println("lname : " + lname);
-		
-		response.getWriter().append(htmlStart)
-		.append("fname : ").append(fname).append("<br>").append("lname : ").append(lname)
-		.append(htmlEnd);
+		String email = request.getParameter("email");
+		String telephone = request.getParameter("telephone");
+		Contatto c = new Contatto(fname,lname,telephone,email);
+		Session session = SessionManager.getSession();
+		try {
+			HCriteria.addContact(c,session);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		SessionManager.close(session);
+
+		response.sendRedirect("risposta.html");
+		//response.getWriter().append(htmlStart).append("CONTATTO AGGIUNTO").append(htmlEnd);
 	}
 
 }
