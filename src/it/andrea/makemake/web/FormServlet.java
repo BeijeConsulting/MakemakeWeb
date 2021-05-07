@@ -1,4 +1,4 @@
-package it.beije.makemake.web;
+package it.andrea.makemake.web;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class FormServlet
  */
-//@WebServlet("/form")
+@WebServlet("/form")
 public class FormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
