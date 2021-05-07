@@ -1,4 +1,4 @@
-package it.andrea.makemake.web;
+package it.andrea.makemake.web.view;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -12,7 +12,7 @@ import it.andrea.makemake.web.controller.Controller;
 /**
  * Servlet implementation class TestServlet
  */
-@WebServlet("/AddContatto")
+@WebServlet("/AddContattoServlet")
 public class AddContattoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -65,9 +65,9 @@ public class AddContattoServlet extends HttpServlet {
 		
 		controller.addContatto(nome, cognome, telefono, email);
 
-		response.getWriter().append(htmlStart).append("nome : ").append(nome).append("<br>").append("cognome : ")
-				.append(cognome).append("<br>").append("telefono : ").append(telefono).append("<br>").append("email : ")
-				.append(email).append(htmlEnd);
+//		response.getWriter().append(htmlStart).append("nome : ").append(nome).append("<br>").append("cognome : ")
+//				.append(cognome).append("<br>").append("telefono : ").append(telefono).append("<br>").append("email : ")
+//				.append(email).append(htmlEnd);
 	}
 
 }

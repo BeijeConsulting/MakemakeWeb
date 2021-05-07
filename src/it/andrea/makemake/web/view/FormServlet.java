@@ -1,4 +1,4 @@
-package it.andrea.makemake.web;
+package it.andrea.makemake.web.view;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
