@@ -33,8 +33,22 @@ private static final long serialVersionUID = 1L;
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("GET " + request.getRequestURL());
-	doPost(request, response);
+//		JPASingleton.getInstance();
+//		EntityManager entityManager = JPASingleton.getEntityManager();
+//		
+//		System.out.println("GET " + request.getRequestURL());
+//		String nome = request.getParameter("nome");
+//		String cognome = request.getParameter("cognome");
+//		String telefono = request.getParameter("telefono");
+//		String email = request.getParameter("email ");
+//		System.out.println(nome);
+//		System.out.println(cognome);
+//		System.out.println(telefono);
+//		System.out.println(email);
+//	
+//		inserisciContatto(entityManager,nome,cognome,telefono,email);
+//		response.getWriter().append(mostraRubrica(entityManager));
+		
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -45,25 +59,24 @@ private static final long serialVersionUID = 1L;
 		JPASingleton.getInstance();
 		EntityManager entityManager = JPASingleton.getEntityManager();
 		
-		String operazione = request.getParameter("operazione");
+		final String operazione = request.getParameter("operazione");
 		System.out.println(operazione);
 		
-		response.getWriter().append(operazione);
+		
+		
 		switch(operazione) {
 		case "aggiungi":
-			
-			inserisciContatto(entityManager);
+			response.sendRedirect("inserimentoContatti.html");			
 			break;
 			
 		case "visualizza":
-			
 			response.getWriter().append(mostraRubrica(entityManager));
 			break;
-		case "cerca":
 			
+		case "cerca":
+			response.getWriter().append(operazione);
 			break;
 		}
-		//response.sendRedirect("risposta.html");
 	}
 
 	
@@ -90,15 +103,16 @@ private static final long serialVersionUID = 1L;
 		
 	}
 	// INSERIMENTO CONTATTO ______________________________________________________________________________________________________
-	public static void inserisciContatto(EntityManager entityManager) {
+	public static void inserisciContatto(EntityManager entityManager, String nome, String cognome, String email, String telefono) {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		
 		try {
 			Contatto newContatto = new Contatto();
-			newContatto.setCognome("campagnoli");
-			newContatto.setNome("jacopo");
-			newContatto.setEmail("j.campagnoli1@beije.it");
+			newContatto.setCognome(cognome);
+			newContatto.setNome(nome);
+			newContatto.setEmail(email);
+			newContatto.setTelefono(telefono);
 			System.out.println("contatto PRE : " + newContatto);
 			entityManager.persist(newContatto);
 			System.out.println("contatto POST : " + newContatto);
