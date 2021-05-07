@@ -33,8 +33,9 @@ public class ServletTry extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<ContattoNoMap> contatti = new ArrayList<>();
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 		RubricaManager.readContact();
+		/*
 		String nome = request.getParameter("nome");
 		String cognome = request.getParameter("cognome");	
 		String email = request.getParameter("email");
@@ -45,11 +46,9 @@ public class ServletTry extends HttpServlet {
 			contatti = RubricaManager.cercaContatto("cognome", cognome);
 		}else if(email!=null) {
 			contatti = RubricaManager.cercaContatto("email", email);
-		}
+		}*/
 		
-		response.getWriter().append(htmlStart).append("<h1>Contatto</h1><br>")
-		.append("")//vorrei metterci il contatto 
-		.append(htmlEnd);
+		response.sendRedirect("rubrica.jsp");//Mettere il redirect sulla pagine 
 	}
 
 	/**
