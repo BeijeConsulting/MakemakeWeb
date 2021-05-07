@@ -43,6 +43,7 @@ public class FormServlet extends HttpServlet {
 		System.out.println("password : " + password);
 
 		response.sendRedirect("risposta.html");
+		
 	}
 
 }
