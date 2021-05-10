@@ -33,21 +33,7 @@ private static final long serialVersionUID = 1L;
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		JPASingleton.getInstance();
-//		EntityManager entityManager = JPASingleton.getEntityManager();
-//		
-//		System.out.println("GET " + request.getRequestURL());
-//		String nome = request.getParameter("nome");
-//		String cognome = request.getParameter("cognome");
-//		String telefono = request.getParameter("telefono");
-//		String email = request.getParameter("email ");
-//		System.out.println(nome);
-//		System.out.println(cognome);
-//		System.out.println(telefono);
-//		System.out.println(email);
-//	
-//		inserisciContatto(entityManager,nome,cognome,telefono,email);
-//		response.getWriter().append(mostraRubrica(entityManager));
+
 		
 	}
 	/**
@@ -56,27 +42,7 @@ private static final long serialVersionUID = 1L;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("POST " + request.getRequestURL());
 		
-		JPASingleton.getInstance();
-		EntityManager entityManager = JPASingleton.getEntityManager();
-		
-		final String operazione = request.getParameter("operazione");
-		System.out.println(operazione);
-		
-		
-		
-		switch(operazione) {
-		case "aggiungi":
-			response.sendRedirect("inserimentoContatti.html");			
-			break;
-			
-		case "visualizza":
-			response.getWriter().append(mostraRubrica(entityManager));
-			break;
-			
-		case "cerca":
-			response.getWriter().append(operazione);
-			break;
-		}
+
 	}
 
 	
@@ -144,6 +110,7 @@ private static final long serialVersionUID = 1L;
 	}
 	// MOSTRA RUBRICA ______________________________________________________________________________________________________
 	public static String mostraRubrica(EntityManager entityManager) {
+		
 		String jpqlSelect = "SELECT c FROM Contatto as c";
 		Query query = entityManager.createQuery(jpqlSelect);
 		List<Contatto> contatti = query.getResultList();
@@ -151,8 +118,8 @@ private static final long serialVersionUID = 1L;
 
 		StringBuilder output = new StringBuilder();
 		for (Contatto contatto : contatti) {
-//			output.append("<br>CONTATTO=[" + contatto +"]");
-			output.append("\nCONTATTO=[" + contatto +"]\n");
+			output.append("<br>CONTATTO=[" + contatto +"]");
+			//output.append("\nCONTATTO=[" + contatto +"]\n");
 				
 		}
 		String respcontact = output.toString();
