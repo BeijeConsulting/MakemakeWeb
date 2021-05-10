@@ -21,25 +21,19 @@ public class ServletTry extends HttpServlet {
 	private static final String htmlStart = "<HTML><HEAD><TITLE>MakemakeWeb</TITLE></HEAD><BODY>";
 	private static final String htmlEnd = "</BODY></HTML>";
 	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+  
     public ServletTry() {
         super();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<ContattoNoMap> contatti = new ArrayList<>();
-		response.sendRedirect("rubrica.jsp");//Mettere il redirect sulla pagine 
+		response.sendRedirect("rubrica.html");//Mettere il redirect sulla pagine 
 		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RubricaManager.readContact();
 		//doGet(request, response);
