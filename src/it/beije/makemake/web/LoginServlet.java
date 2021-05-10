@@ -1,6 +1,12 @@
 package it.beije.makemake.web;
 
 import java.io.IOException;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,7 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import it.beije.makemake.User;
+
+
+import it.beije.makemake.ecommerce.User;
 
 /**
  * Servlet implementation class LoginServlet
@@ -27,40 +35,37 @@ public class LoginServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
 
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		System.out.println("username : " + username);
-		System.out.println("password : " + password);
+		
 		
 		if (username == null || username.length() == 0 || password == null || password.length() == 0) {
-			session.setAttribute("errore", "INSERIRE LE CREDENZIALI");
+			session.setAttribute("errore", "Inserire i campi per le credenziali");
 			response.sendRedirect("login.jsp");
 			return;
 		}
 		
-		//... SELECT * FROM USER WHERE USERNAME = 'XXX' AND PASSWORD = 'YYY'
-		User user;//carico dati da DB
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("Makemake");
+		EntityManager manager = factory.createEntityManager();
 		
-		if ("Pluto".equalsIgnoreCase(username) && "1234".equals(password)) {
-			//simulo
-			user = new User();
-			user.setUsername(username);
-			user.setName("Pippo");
-			user.setSurname("Rossi");
-
-			session.setAttribute("loggedUser", user);
-
-			response.sendRedirect("benvenuto.jsp");
-
-		} else {
+		Query query = manager.createNativeQuery("SELECT * FROM user WHERE username = :u AND password = :p", User.class);
+		query.setParameter("u", username);
+		query.setParameter("p", password);
+		
+		List<User> users = query.getResultList();
+		
+		if(users.isEmpty()) {
 			session.setAttribute("errore", "CREDENZIALI ERRATE");
 			response.sendRedirect("login.jsp");
+		}else {
+			session.setAttribute("logged", users.get(0));
+			response.sendRedirect("menu.jsp");
 		}
-	
 	}
 
 }

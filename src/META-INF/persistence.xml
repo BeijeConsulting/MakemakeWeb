@@ -3,7 +3,13 @@
 	<persistence-unit name="Makemake">
 	
 		<class>it.beije.makemake.utils.Contatto</class>
-	
+		<class>it.beije.makemake.ecommerce.User</class>
+		<class>it.beije.makemake.ecommerce.Product</class>
+		<class>it.beije.makemake.ecommerce.Order</class>
+		<class>it.beije.makemake.ecommerce.OrderItem</class>
+
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/makemake"/>
