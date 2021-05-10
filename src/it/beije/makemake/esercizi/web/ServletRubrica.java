@@ -26,6 +26,7 @@ public class ServletRubrica extends HttpServlet {
     public ServletRubrica() {
         super();
         
+        
     }
 
 	
