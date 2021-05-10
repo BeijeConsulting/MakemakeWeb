@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rubrica>
+    <contatto eta="35">
+        <nome>Carlo</nome>
+        <cognome>Bianchi</cognome>
+        <telefono>3337658231</telefono>
+    </contatto>
+    <contatto eta="30">
+        <nome>Mario</nome>
+        <cognome>Rossi</cognome>
+        <telefono>3337658390</telefono>
+        <email>mario.rossi@tim.it</email>
+    </contatto>
+    <contatto eta="30">
+        <nome>Alberto</nome>
+        <cognome>Zampogna</cognome>
+        <telefono>3334618392</telefono>
+        <email>alberto.zampogna@tim.it</email>
+    </contatto>
+    <contatto eta="30">
+        <nome>Camilla</nome>
+        <cognome>Mastrota</cognome>
+        <telefono>3327458490</telefono>
+        <email>camilla.mastrota@gmail.com</email>
+    </contatto>
+    <contatto eta="30">
+        <nome>Camilla</nome>
+        <cognome>Biraghi</cognome>
+        <telefono>3127258420</telefono>
+        <email>camilla.biraghi@gmail.com</email>
+    </contatto>
+</rubrica>
