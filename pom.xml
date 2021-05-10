@@ -24,4 +24,19 @@
       </plugin>
     </plugins>
   </build>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.hibernate</groupId>
+  		<artifactId>hibernate-core</artifactId>
+  	</dependency>
+  </dependencies>
+  <dependencyManagement>
+  	<dependencies>
+  		<dependency>
+  			<groupId>org.hibernate</groupId>
+  			<artifactId>hibernate-core</artifactId>
+  			<version>5.4.30.Final</version>
+  		</dependency>
+  	</dependencies>
+  </dependencyManagement>
 </project>
