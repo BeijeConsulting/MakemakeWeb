@@ -28,8 +28,8 @@ public class ServletRubrica extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String operazione= null;
-		operazione= request.getParameter(operazione);
+		
+		String operazione= request.getParameter("operazione");
 		System.out.println(operazione);
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
