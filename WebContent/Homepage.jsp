@@ -1,0 +1,20 @@
+<%@page import="it.beije.makemake.User"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<jsp:useBean id="loggedUser" class="it.beije.makemake.User" scope="session"/>
+
+<%
+String name = loggedUser.getName() != null ? loggedUser.getName() : "OSPITE";
+%>
+
+<h1>BENVENUTO <%= name %>!!!</h1>
+</body>
+</html>

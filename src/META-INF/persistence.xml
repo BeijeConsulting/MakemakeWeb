@@ -3,6 +3,10 @@
 	<persistence-unit name="Makemake">
 
 		<class>it.andrea.makemake.contatti.entity.Contatto</class>
+		<class>it.andrea.makemake.web.entity.User</class>
+		<class>it.andrea.makemake.web.entity.Order</class>
+		<class>it.andrea.makemake.web.entity.OrderItem</class>
+		<class>it.andrea.makemake.web.entity.Product</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		
 		<properties>

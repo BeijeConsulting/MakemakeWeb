@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.andrea.makemake.web.controller.Controller;
+import it.andrea.makemake.web.controller.ContattoController;
 
 /**
  * Servlet implementation class TestServlet
@@ -19,7 +19,7 @@ public class AddContattoServlet extends HttpServlet {
 	private static final String htmlStart = "<HTML><HEAD><TITLE>MakemakeWeb</TITLE></HEAD><BODY>";
 	private static final String htmlEnd = "</BODY></HTML>";
 	
-	private static Controller controller = new Controller();
+	private static ContattoController controller = new ContattoController();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
