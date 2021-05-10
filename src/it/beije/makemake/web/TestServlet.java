@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import rubrica.Contatto;
+import rubrica.JpaManager;
+
 /**
  * Servlet implementation class TestServlet
  */
@@ -21,7 +24,7 @@ public class TestServlet extends HttpServlet {
      * @see HttpServlet#HttpServlet()
      */
     public TestServlet() {
-        super();
+       
     }
 
 	/**
@@ -32,11 +35,19 @@ public class TestServlet extends HttpServlet {
 		
 		response.getWriter().append(htmlStart).append("<h1>Sono un Titolo</h1><p>questa è una prova</p><br>")
 		.append("<form action=\"test\" method=\"post\">\r\n" + 
-				"		  <label for=\"fname\">First name:</label><br>\r\n" + 
-				"		  <input type=\"text\" name=\"fname\"><br>\r\n" + 
-				"		  <label for=\"lname\">Last name:</label><br>\r\n" + 
-				"		  <input type=\"text\" name=\"lname\"><br><br>\r\n" + 
-				"		  <input type=\"submit\" value=\"Submit\">\r\n" + 
+				"		  <label for=\"nome\"> Nome: </label><br>\r\n" + 
+				"		  <input type=\"text\" name=\"nome\"><br>\r\n" + 
+				
+				"		  <label for=\"cognome\"> Cognome: </label><br>\r\n" + 
+				"		  <input type=\"text\" name=\"cognome\"><br>\r\n" + 
+				
+				"		  <label for=\"telefono\"> Telefono: </label><br>\r\n" + 
+				"		  <input type=\"text\" name=\"telefono\"><br>\r\n" + 
+				
+				"		  <label for=\"mail\"> Mail: </label><br>\r\n" + 
+				"		  <input type=\"text\" name=\"mail\"><br><br>\r\n" + 
+				
+				"		  <input type=\"submit\" value=\"Inserisci\">\r\n" + 
 				"		</form>")
 		.append(htmlEnd);
 	}
@@ -47,13 +58,20 @@ public class TestServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("test POST");
 		
-		String fname = request.getParameter("fname");
-		String lname = request.getParameter("lname");
-		System.out.println("fname : " + fname);
-		System.out.println("lname : " + lname);
+		String nome = request.getParameter("nome");
+		String cognome = request.getParameter("cognome");
+		String telefono = request.getParameter("telefono");
+		String mail = request.getParameter("mail");
+		System.out.println("Nome : " + nome);
+		System.out.println("Cognome : " + cognome);
+		System.out.println("Telefono :" + telefono);
+		System.out.println("Mail" + mail);
+		Contatto c = new Contatto(nome, cognome, telefono, mail);
+		
+		JpaManager.insert(c);
 		
 		response.getWriter().append(htmlStart)
-		.append("fname : ").append(fname).append("<br>").append("lname : ").append(lname)
+		.append("nome : ").append(nome).append("<br>").append("cognome : ").append(cognome)
 		.append(htmlEnd);
 	}
 
