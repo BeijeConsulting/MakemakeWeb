@@ -12,7 +12,7 @@ public class SingleEntityManager {
 	}
 
 	public static EntityManager getInstance() {
-		if (instance == null) {
+		if (instance == null || !instance.isOpen()) {
 			EntityManagerFactory factory = Persistence.createEntityManagerFactory("Makemake");
 			instance = factory.createEntityManager();
 		}

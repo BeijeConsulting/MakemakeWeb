@@ -17,6 +17,15 @@ if (errore != null) {
 	<%
 	session.removeAttribute("errore");
 }
+
+String successfulRegistration = (String) session.getAttribute("registrationResult");
+
+if (successfulRegistration != null) {
+	%>
+	<h6 style='color:green'><%= successfulRegistration %></h6>
+	<%
+	session.removeAttribute("registrationResult");
+}
 %>
 
 <form action="login" method="post">
@@ -26,6 +35,7 @@ if (errore != null) {
   <input type="password" name="password"><br><br>
   <input type="submit" value="Submit">
 </form> 
+<h5>Non sei registrato? Puoi farlo <a href='register.jsp'>qui</a></h5>
 
 </body>
 </html>

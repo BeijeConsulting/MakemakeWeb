@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import it.andrea.makemake.web.entity.Order;
@@ -85,13 +86,16 @@ public class DBManager {
 //	----------------------------------------------------------------------
 	public User getUserByUsernameAndPassword(String username, String password) {
 		EntityManager em = SingleEntityManager.getInstance();
-		TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :username AND u.password = :password", User.class);
+		TypedQuery<User> query = em.createQuery(
+				"SELECT u FROM User u WHERE u.username = :username AND u.password = :password", User.class);
 		User result;
 		try {
 			result = query.setParameter("username", username).setParameter("password", password).getSingleResult();
 		} catch (NoResultException noRes) {
+			em.close();
 			return null;
 		}
+		em.close();
 		return result;
 	}
 
@@ -115,9 +119,23 @@ public class DBManager {
 		Order result = query.setParameter("id", id).getSingleResult();
 		return result;
 	}
-	
+
 	public void close() {
 		EntityManager em = SingleEntityManager.getInstance();
+		em.close();
+	}
+
+	public void addUser(User user) throws PersistenceException {
+		EntityManager em = SingleEntityManager.getInstance();
+
+		EntityTransaction entityTransaction = em.getTransaction();
+		entityTransaction.begin();
+		try {
+			em.persist(user);
+		} finally {
+			em.close();
+		}
+		entityTransaction.commit();
 		em.close();
 	}
 }

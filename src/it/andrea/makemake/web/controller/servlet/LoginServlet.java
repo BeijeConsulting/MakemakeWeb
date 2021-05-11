@@ -1,4 +1,4 @@
-package it.andrea.makemake.web.view;
+package it.andrea.makemake.web.controller.servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -37,21 +37,18 @@ public class LoginServlet extends HttpServlet {
 
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-//		System.out.println("username : " + username);
-//		System.out.println("password : " + password);
 
 		if (username == null || username.length() == 0 || password == null || password.length() == 0) {
 			session.setAttribute("errore", "INSERIRE LE CREDENZIALI");
 			response.sendRedirect("login.jsp");
 		} else {
-			// ... SELECT * FROM USER WHERE USERNAME = 'XX' AND PASSWORD = 'YY'
 			User user = EcommerceController.login(username, password);
 			if (user == null) {
 				session.setAttribute("errore", "CREDENZIALI ERRATE");
 				response.sendRedirect("login.jsp");
 			} else {
 				session.setAttribute("loggedUser", user);
-				response.sendRedirect("benvenuto.jsp");
+				response.sendRedirect("homepage.jsp");
 			}
 		}
 	}
