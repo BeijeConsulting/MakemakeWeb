@@ -35,15 +35,15 @@ public class EcommerceServlet extends HttpServlet {
 		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		System.out.println("username : " + username);
-		System.out.println("password : " + password);
+		//System.out.println("username : " + username);
+		//System.out.println("password : " + password);
 		
 		
 		if (username == null || username.length() == 0 || password == null || password.length() == 0) {
 			session.setAttribute("errore", "INSERIRE LE CREDENZIALI");
 			response.sendRedirect("myLogin.jsp");
 		}else{
-			User u = Controller.getUserByUsernameAndPassword(username,password);
+			User u = Controller.login(username,password);
 			if(u == null) {
 				session.setAttribute("errore", "CREDENZIALI ERRATE");
 				response.sendRedirect("myLogin.jsp");
