@@ -3,7 +3,10 @@
 	<persistence-unit name="MakemakeWeb">
 
 		<class>it.beije.makemake.web.Try.Rubrica.Contatto</class>
-		
+		<class>it.beije.makemake.web.myEcomm.entity.User</class>
+		<class>it.beije.makemake.web.myEcomm.entity.Order</class>
+		<class>it.beije.makemake.web.myEcomm.entity.Order_item</class>
+		<class>it.beije.makemake.web.myEcomm.entity.Product</class>
 
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		
