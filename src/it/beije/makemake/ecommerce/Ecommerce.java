@@ -10,14 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Restrictions;
 
 
 
@@ -108,6 +101,19 @@ public class Ecommerce {
 		entityManager.close();
 		
 		return userList;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<User> login(String username, String password) {
+		EntityManager manager = FACTORY.createEntityManager();
+		
+		Query query = manager.createNativeQuery("SELECT * FROM user WHERE username = :u AND password = :p", User.class);
+		query.setParameter("u", username);
+		query.setParameter("p", password);
+		
+		List<User> users = query.getResultList();
+		
+		return users;
 	}
 	
 	public static void printProducts() {

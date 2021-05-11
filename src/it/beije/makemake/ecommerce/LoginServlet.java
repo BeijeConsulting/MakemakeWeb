@@ -1,4 +1,4 @@
-package it.beije.makemake.web;
+package it.beije.makemake.ecommerce;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,14 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
-
-import it.beije.makemake.ecommerce.User;
-
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/login")
+@WebServlet("/ecommerce/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -35,7 +31,6 @@ public class LoginServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
@@ -50,14 +45,7 @@ public class LoginServlet extends HttpServlet {
 			return;
 		}
 		
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("Makemake");
-		EntityManager manager = factory.createEntityManager();
-		
-		Query query = manager.createNativeQuery("SELECT * FROM user WHERE username = :u AND password = :p", User.class);
-		query.setParameter("u", username);
-		query.setParameter("p", password);
-		
-		List<User> users = query.getResultList();
+		List<User> users = Ecommerce.login(username, password);
 		
 		if(users.isEmpty()) {
 			session.setAttribute("errore", "CREDENZIALI ERRATE");
