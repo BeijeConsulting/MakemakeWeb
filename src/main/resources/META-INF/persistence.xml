@@ -3,6 +3,10 @@
 	<persistence-unit name="MakemakeWeb">
 
 		<class>it.beije.makemake.addressbook.Contact</class>
+		<class>it.beije.makemake.ecommerce.User</class>
+		<class>it.beije.makemake.ecommerce.Order</class>
+		<class>it.beije.makemake.ecommerce.OrderItem</class>
+		<class>it.beije.makemake.ecommerce.Product</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 		<properties>

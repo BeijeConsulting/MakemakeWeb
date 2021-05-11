@@ -1,3 +1,4 @@
+package it.beije.makemake.ecommerce.web;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
