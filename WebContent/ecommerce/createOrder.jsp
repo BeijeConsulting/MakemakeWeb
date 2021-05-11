@@ -4,11 +4,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Aggiungi Contatto</title>
+<title>Insert title here</title>
 </head>
 <body>
-	<%
-	
-	%>
+
 </body>
 </html>

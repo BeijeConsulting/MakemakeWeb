@@ -1,4 +1,4 @@
-<%@page import="it.beije.makemake.User"%>
+<%@page import="it.beije.makemake.ecommerce.User"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<jsp:useBean id="loggedUser" class="it.beije.makemake.User" scope="session"/>
+<jsp:useBean id="loggedUser" class="it.beije.makemake.ecommerce.User" scope="session"/>
 
 <%
 /*

@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<jsp:useBean id="loggedUser" class="it.beije.makemake.User" scope="session"/>
+<jsp:useBean id="loggedUser" class="it.beije.makemake.ecommerce.User" scope="session"/>
 
 <%
 if (loggedUser.getUsername() != null) {
