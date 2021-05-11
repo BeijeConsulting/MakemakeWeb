@@ -49,7 +49,14 @@ public class EcommerceServlet extends HttpServlet {
 				response.sendRedirect("myLogin.jsp");
 			}else{
 				session.setAttribute("loggedUser", u);
-				response.sendRedirect("Welcome.jsp");
+				String entryPoint  = (String ) session.getAttribute("entryPoint");
+				if(entryPoint == null) {
+					response.sendRedirect("Welcome.jsp");
+				}else {
+					session.removeAttribute("entryPoint");
+					response.sendRedirect(entryPoint);
+				}
+				
 			}
 		}
 		

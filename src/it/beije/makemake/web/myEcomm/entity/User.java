@@ -5,12 +5,13 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-
+import it.beije.makemake.web.myEcomm.entity.Order;
 //import it.beije.makemake.myEcommerce.Order;
 
 
@@ -32,11 +33,15 @@ public class User {
 	
 	private String surname;
 	
-	@OneToMany(cascade = CascadeType.ALL/*, fetch=FetchType.EAGER*/)
+	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="id_user")
 	private List<Order> orders;
 
 	
+	public List<Order> getOrders() {
+		return orders;
+	}
+
 	public Integer getId() {
 		return id;
 	}

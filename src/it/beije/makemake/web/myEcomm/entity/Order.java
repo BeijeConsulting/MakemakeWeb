@@ -6,13 +6,14 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
+import it.beije.makemake.web.myEcomm.entity.Order_item;
 @Entity
 @Table(name = "\"order\"")
 public class Order {
@@ -32,7 +33,7 @@ private String status;
 @Column
 private Double total;
 
-@OneToMany(cascade = CascadeType.ALL/*, fetch=FetchType.EAGER*/)
+@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 @JoinColumn(name = "id_order")
 private List<Order_item> orders_item;
 
