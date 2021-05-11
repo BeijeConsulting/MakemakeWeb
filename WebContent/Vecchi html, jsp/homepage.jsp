@@ -24,5 +24,6 @@ String name = loggedUser.getName() != null ? loggedUser.getName() : "OSPITE";
 %>
 
 <h1>BENVENUTO <%= name %>!!!</h1>
+<h2> questa è l homepage</h2>
 </body>
 </html>

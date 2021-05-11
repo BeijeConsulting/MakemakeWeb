@@ -13,6 +13,6 @@
 User user = (User) session.getAttribute("loggedUser");
 %>
 <h1>BENVENUTO <%= user.getName() %>!!!</h1>
-
+<a  href="MyIndex.html"> vai all'homepage per accedere alla rubrica</a>
 </body>
 </html>

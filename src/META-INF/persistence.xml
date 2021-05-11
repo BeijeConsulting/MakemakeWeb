@@ -7,6 +7,11 @@
 
 
 		<class>it.beije.makemake.web.rubrica.ContattoRubrica</class>
+		<class>it.beije.makemake.web.rubrica.Contatto</class>
+		<class>it.beije.makemake.web.ecommerce.User</class>
+		<class>it.beije.makemake.web.ecommerce.Product</class>
+		<class>it.beije.makemake.web.ecommerce.Order</class>
+		<class>it.beije.makemake.web.ecommerce.Order_item</class>
 
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
@@ -16,8 +21,7 @@
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:mysql://localhost:3306/makemake" />
 			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password"
-				value="Beije09" />
+			<property name="javax.persistence.jdbc.password" value="Beije09" />
 		</properties>
 
 	</persistence-unit>
