@@ -2,6 +2,7 @@ package it.andrea.makemake.web.controller;
 
 import javax.persistence.PersistenceException;
 
+import it.andrea.makemake.web.entity.Product;
 import it.andrea.makemake.web.entity.User;
 import it.andrea.makemake.web.model.DBManager;
 
@@ -27,5 +28,23 @@ public class EcommerceController {
 				return USER_ALREADY_EXISTS;
 			}
 		}
+	}
+	
+	public static String modify(User oldUser, User newUser) {
+		if (newUser.getUsername() == null || newUser.getUsername().trim().isEmpty() || newUser.getPassword() == null
+				|| newUser.getPassword().trim().isEmpty()) {
+			return MISSING_USERNAME_OR_PW;
+		} else {
+			try {
+				dbManager.modifyUser(oldUser, newUser);
+				return OK;
+			} catch (PersistenceException userExists) {
+				return USER_ALREADY_EXISTS;
+			}
+		}
+	}
+	
+	public static Product getProductById(int id) {
+		return dbManager.getProductById(id);
 	}
 }

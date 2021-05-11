@@ -34,7 +34,7 @@ public class Order {
 	@Column
 	private BigDecimal total;
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="id_order")
 	private List<OrderItem> orderItems;
 
@@ -85,6 +85,12 @@ public class Order {
 	public void setOrderItems(List<OrderItem> orderItems) {
 		this.orderItems = orderItems;
 	}
+
+	@Override
+	public String toString() {
+		return "Order [date=" + date + ", status=" + status + ", total=" + total + "]";
+	}
+	
 }
 
 //CREATE TABLE `makemake`.`order` (

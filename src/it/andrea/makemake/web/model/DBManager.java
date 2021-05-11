@@ -138,4 +138,23 @@ public class DBManager {
 		entityTransaction.commit();
 		em.close();
 	}
+
+	public void modifyUser(User oldUser, User newUser) {
+		EntityManager em = SingleEntityManager.getInstance();
+
+		EntityTransaction entityTransaction = em.getTransaction();
+		entityTransaction.begin();
+		User user = em.find(User.class, oldUser.getId());
+		user.setName(newUser.getName());
+		user.setSurname(newUser.getSurname());
+		user.setUsername(newUser.getUsername());
+		user.setPassword(newUser.getPassword());
+		try {
+			em.persist(user);
+		} finally {
+			em.close();
+		}
+		entityTransaction.commit();
+		em.close();
+	}
 }

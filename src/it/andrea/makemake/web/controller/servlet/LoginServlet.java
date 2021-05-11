@@ -48,7 +48,13 @@ public class LoginServlet extends HttpServlet {
 				response.sendRedirect("login.jsp");
 			} else {
 				session.setAttribute("loggedUser", user);
-				response.sendRedirect("homepage.jsp");
+				String entryPoint = (String) session.getAttribute("entryPoint");
+				if (entryPoint == null) {
+					response.sendRedirect("homepage.jsp");
+				} else {
+					session.removeAttribute("entryPoint");
+					response.sendRedirect(entryPoint);
+				}
 			}
 		}
 	}
