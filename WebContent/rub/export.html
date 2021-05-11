@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Export Contatti</title>
+	</head>
+	<body>
+		<h1>Seleziona la query che vuoi fare sulla tabella Contatto</h1>
+		
+		<p>Scegli dal menu a tendina:</p>
+		
+		<form action="databaseReader" method="get">
+		  <label for="cars">Choose a query:</label>
+			  <select  name="queryType">
+			    <option value="select">select</option>
+			    <option value="insert">insert</option>
+			    <option value="update">update</option>
+			    <option value="delete">delete</option>
+			  </select>
+		  <input type="submit">
+		</form>
+	</body>
+</html>
