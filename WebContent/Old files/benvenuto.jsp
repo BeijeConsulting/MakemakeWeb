@@ -12,7 +12,7 @@
 <%
 User user = (User) session.getAttribute("loggedUser");
 %>
-<h1>BENVENUTO <%= user.getName() %>!!!</h1>
+<h1>Ciao <%= user.getName() %>!!!</h1>
 
 </body>
 </html>

@@ -40,7 +40,7 @@ public class ServletRubrica extends HttpServlet {
 		String email =  request.getParameter("email");
 		
 		if(name!= null) {
-			System.out.println(RubricaManager.cercaContatto("name" , name));
+//			System.out.println(RubricaManager.cercaContatto("name" , name));
 		}
 		
 	}
