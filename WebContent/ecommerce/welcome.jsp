@@ -16,10 +16,10 @@
 			<p>Scegli l'operazione che vuoi andare a fare</p>
 			<ul>
 				<li><a href="login.jsp">Fai il login</a></li>
-				<li><a href="register.jsp">Registrati</a>
-				<li><a href="ShowProducts">Visualizza prodotti disponibili</a></li>
-				<li><a href="addtocart">Aggiungi al carrello</a></li>
-				<li><a href="gotocart">Vai al carrello</a>
+				<li><a href="registration.jsp">Registrati</a>
+				<li><a href="showproducts">Visualizza prodotti disponibili</a></li>
+				<li><a href="chooseproduct">Aggiungi al carrello</a></li>
+				<li><a href="cart">Vai al carrello</a>
 				<li><a href="showorders">Dettaglio oridini</a></li>
 				<li><a href="logout.jsp">Fai logout</a></li>
 			</ul>

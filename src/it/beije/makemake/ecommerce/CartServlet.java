@@ -1,6 +1,7 @@
 package it.beije.makemake.ecommerce;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,22 +12,34 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class ShowProducts
+ * Servlet implementation class CartServlet
  */
-@WebServlet("/ecommerce/showproducts")
-public class ShowProducts extends HttpServlet {
+@WebServlet("/ecommerce/cart")
+public class CartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
- 
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public CartServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Product> products = Ecommerce.getProducts();
 		HttpSession session = request.getSession();
-		session.setAttribute("products", products);
-		
-		response.sendRedirect("products.jsp");
+		User logged = (User)session.getAttribute("logged");
+		if(logged == null){
+			response.sendRedirect("login.jsp");
+			return;
+		}
+		List<OrderItem> cart = (List<OrderItem>) session.getAttribute("cart");
+		HashMap<OrderItem,Product> map = Ecommerce.itemToProduct(cart);
+		session.setAttribute("viewCart", map);
+		response.sendRedirect("cart.jsp");
 	}
 
 	/**

@@ -1,3 +1,6 @@
+<%@page import="com.mysql.cj.x.protobuf.MysqlxCrud.Order"%>
+<%@page import="it.beije.makemake.ecommerce.OrderItem"%>
+<%@page import="java.util.HashMap"%>
 <%@ page import="it.beije.makemake.ecommerce.Ecommerce"%>
 <%@ page import="it.beije.makemake.ecommerce.Product"%>
 <%@ page import="java.util.List"%>
@@ -7,32 +10,31 @@
 <html>
 	<head>
 		<meta charset="ISO-8859-1">
-		<title>Prodotti</title>
+		<title>Carrello</title>
 	</head>
 	<body>
 		<header>
+			<h1>Prodotti nel carrello</h1>
 		</header>
 		<main>
 				<jsp:useBean id="logged" class="it.beije.makemake.ecommerce.User" scope="session"/>
 				<% 
 				if(logged.getName() == null){
-					out.print("<h1>Benvenuto Ospite</h1>");
-				}else{
-					out.print("<h1>Benvenuot "+logged.getName()+"!</h1>");
+					response.sendRedirect("login.jsp");
+					return;
 				}
-			
-				List<Product> products = (List<Product>) session.getAttribute("products");
-				session.removeAttribute("products");
-				
-				for(Product p : products){
+				HashMap<OrderItem,Product> map =(HashMap<OrderItem,Product>)session.getAttribute("viewCart");
+				for(OrderItem o : map.keySet()){
+					Product p = map.get(o);
 				%>
-					<%= p.toString()%><br>
+					<%= "[nome: "+ p.getName()+" brand: "+p.getBrand()+" desc: "+p.getDescription()+" quantità: "+o.getQuantity()+" total: "+ o.getPrice()+"]" %><br>
 				<% 	
 				}
 				%>
 				
 		</main>
 		<footer>
+			<hr>
 			<ul>
 				<li><a href="login.jsp">Fai il login</a></li>
 				<li><a href="registration.jsp">Registrati</a>

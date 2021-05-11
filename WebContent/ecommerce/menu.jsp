@@ -21,9 +21,10 @@
 				%>
 				<p>Scegli l'operazione che vuoi andare a fare</p>
 				<ul>
-					<li><a href="ShowProducts">Visualizza prodotti disponibili</a></li>
-					<li><a href="PrepOrderView">Fai un ordine</a></li>
-					<li><a href="ShowOrders">Dettaglio oridini</a></li>
+					<li><a href="showproducts">Visualizza prodotti disponibili</a></li>
+					<li><a href="chooseproduct">Fai un ordine</a></li>
+					<li><a href="cart">Vai al carrello</a>
+					<li><a href="*">Dettaglio oridini</a></li>
 					<li><a href="Logout.jsp">Fai logout</a></li>
 				</ul>
 		</main>
