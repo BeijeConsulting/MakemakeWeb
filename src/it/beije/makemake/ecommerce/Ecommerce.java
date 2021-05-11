@@ -206,17 +206,13 @@ public class Ecommerce {
 				userQuery.setParameter("id", orderList.get(0).getUserId());
 				List<User> userList = userQuery.getResultList();
 
-				System.out
-						.println("L'utente che ha fatto l'ordine numero " + choice + " è " + userList.get(0).getName());
+				System.out.println("L'utente che ha fatto l'ordine numero " + choice + " è " + userList.get(0).getName());
 
-				Query itemQuery = entityManager.createNativeQuery("SELECT * FROM order_item WHERE id_order = :id",
-						OrderItem.class);
+				Query itemQuery = entityManager.createNativeQuery("SELECT * FROM order_item WHERE id_order = :id",OrderItem.class);
 				itemQuery.setParameter("id", orderList.get(0).getId());
 				List<OrderItem> orderItems = itemQuery.getResultList();
-				System.out.println(
-						"-------------------------------------------------------------------------------------------------");
-				System.out.println(
-						"-------------------------------------------------------------------------------------------------");
+				System.out.println("-------------------------------------------------------------------------------------------------");
+				System.out.println("-------------------------------------------------------------------------------------------------");
 				for (OrderItem o : orderItems) {
 					System.out.println(o);
 					Query productQuery = entityManager.createNativeQuery("SELECT * FROM Product WHERE id = :id",
@@ -243,7 +239,7 @@ public class Ecommerce {
 
 	public static HashMap<OrderItem, Product> itemToProduct(List<OrderItem> items) {
 		EntityManager entityManager = FACTORY.createEntityManager();
-		HashMap<OrderItem,Product> map = new HashMap<>();
+		HashMap<OrderItem, Product> map = new HashMap<>();
 		for (OrderItem o : items) {
 			Query productQuery = entityManager.createNativeQuery("SELECT * FROM Product WHERE id = :id", Product.class);
 			productQuery.setParameter("id", o.getPruductId());
