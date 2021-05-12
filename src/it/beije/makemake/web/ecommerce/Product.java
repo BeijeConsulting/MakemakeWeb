@@ -1,5 +1,7 @@
 package it.beije.makemake.web.ecommerce;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +24,7 @@ public class Product {
 	private String description;
 
 	@Column
-	private Double price;
+	private BigDecimal price;
 	
 	@Column
 	private String image;
@@ -63,10 +65,10 @@ public class Product {
 	}
 	
 	
-	public Double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
-	public void setPrice(Double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 

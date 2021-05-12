@@ -1,7 +1,9 @@
 package it.beije.makemake.web.ecommerce.manager;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -36,31 +38,27 @@ public class MyEcommerceManager { // metodi per gestire db ecommerce
 
 		}
 		return user;
-		
+
 	}
 
-	public static void insertUser(String username, String name, String surname , String password) {
+	public static void insertUser(String username, String name, String surname, String password) {
 		EntityManager entityManager = SingletonJpa.getInstance();
 
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 
-		
-			User user = new User();
-			user.setUsername(username);
-			user.setName(name);
-			user.setSurname(surname);
-			user.setPassword(password);
-			System.out.println("contatto PRE : " + user);
-			entityManager.persist(user);
-			System.out.println("contatto POST : " + user);
-			entityTransaction.commit();
-		
+		User user = new User();
+		user.setUsername(username);
+		user.setName(name);
+		user.setSurname(surname);
+		user.setPassword(password);
+		System.out.println("contatto PRE : " + user);
+		entityManager.persist(user);
+		System.out.println("contatto POST : " + user);
+		entityTransaction.commit();
 
 	}
 
-	
-	
 	public static List<Product> selectProdotti() {// visualizza prodotti
 		EntityManager entityManager = SingletonJpa.getInstance();
 		String select = "SELECT c FROM Product as c";
@@ -114,128 +112,96 @@ public class MyEcommerceManager { // metodi per gestire db ecommerce
 		}
 	}
 
-	public static void dettaglioOrdine() throws NumberFormatException {
-		selectOrdini();
-		System.out.println("inserisi l id dell ordine per visualizzarne i dettagli");
-
-		try {
-			Integer choice = Integer.parseInt(in.nextLine());
-			EntityManager entityManager = SingletonJpa.getInstance();
-
-			// cerco l ordine richiesto
-			Query query = entityManager.createNativeQuery("SELECT * FROM `order` WHERE id=?", Order.class);
-			query.setParameter(1, choice);
-			System.out.println(query.getResultList());
-
-			List<Order> orderList = query.getResultList();
-
-			if (orderList.isEmpty()) {
-				System.out.println("nessun ordine trovato");
-			} else {
-				// se l ordine esiste cerco l utente ad esso associato
-				Query queryNome = entityManager.createNativeQuery("SELECT * FROM User  WHERE id=?", User.class);
-				queryNome.setParameter(1, orderList.get(0).getUserId());
-				List<User> userList = queryNome.getResultList();
-				System.out.println("l utent che ha fatto l orine numero  " + choice + " e' " + userList.get(0).getName()
-						+ " " + userList.get(0).getSurname());
-
-				Query itemQuery = entityManager.createNativeQuery("SELECT * FROM order_item WHERE id_order=?",
-						Order_item.class);
-				itemQuery.setParameter(1, orderList.get(0).getId());
-				List<Order_item> orderItems = itemQuery.getResultList();
-
-				for (Order_item o : orderItems) {
-					System.out.println(o);
-					Query productQuery = entityManager.createNativeQuery("SELECT * FROM product WHERE id=?",
-							Product.class);
-					productQuery.setParameter(1, o.getProductId());
-					List<Product> productList = productQuery.getResultList();
-					System.out.println("il product_id corrispnde al seguente prodotto : " + productList.get(0).getName()
-							+ ", " + productList.get(0).getBrand() + ", " + productList.get(0).getPrice() + "€");
-				}
-			}
-			entityManager.close();
-		} catch (NumberFormatException e) {
-			System.out.println("input non valido");
-			
-}
-
-	}
-//da sistemare
-	public static void orderCreation() {
+	public static String getOrderDetails(Order order) {
+        StringBuilder output = new StringBuilder();
+        EntityManager entityManager = SingletonJpa.getInstance();
+        Integer id = order.getId();
+        //append order info
+        output.append("ORDER INFO: " + "\n");
+        output.append(order.toString());
+        //get data about user
+        output.append("\n\nUSER INFO: " + "\n");
+        User user = getUser(order.getUserId());
+        output.append(user.toString());
+        //get data about products
+        output.append("\n\nPRODUCT INFO:\n-----------------------------------------------------\n");
+        String selectOrderItem = "SELECT oi from OrderItem as oi WHERE oi.orderId =: id";
+        Query query = entityManager.createQuery(selectOrderItem);
+        query.setParameter("id", id);
+        List<Order_item> orderItems = query.getResultList();
+        for (Order_item orderItem: orderItems) {
+            Integer productId = orderItem.getProductId();
+            Product product = getProduct(productId);
+            output.append(product.toString());
+            output.append("\nOrdered amount: " + orderItem.getQuantity() + "\n");
+            output.append("\nPrice amount: " + orderItem.getPrice()+ "\n");
+            output.append("-----------------------------------------------------\n");
+        }
+        return output.toString();
+    }
+	//___________________________________________________________________
+	public static void createNewOrder(int idUser, HashMap<Integer, Integer> products) {
 		EntityManager entityManager = SingletonJpa.getInstance();
-		System.out.println("inserisi nome utente e password");
-		System.out.println("Username: ");
-		String username = in.nextLine();
-		System.out.println("Password: ");
-		String psw = in.nextLine();
-		Query userQuery = entityManager
-				.createNativeQuery("SELECT * FROM user WHERE username=:username AND password =:psw=?", User.class);
-		userQuery.setParameter("username", username);
-		userQuery.setParameter("psw", psw);
-
-		// mi ritorna o una lista vuota o lo user corripondente
-		List<User> userList = userQuery.getResultList();
-
-		if (userList.isEmpty()) {
-			System.out.println("hai sbagliato username o password");
-			return;
+		User user = entityManager.find(User.class, idUser);
+		if (user == null) {
+			throw new IllegalArgumentException("Id utente non valido");
 		}
-
-		Integer userId = userList.get(0).getId();
-
-		// stampo a video i prodotti tra cui scegliere
-		selectProdotti();
-
-		System.out.println("scegli i prodotti e le quantita' da aggiungere all'ordine");
-		List<Order_item> items = new ArrayList<>();
-		String answer;
-		do {
-			Order_item temp = createOrderItem();
-			if (temp != null)
-				items.add(temp);
-			else
-				System.out.println("inserisci valori validi");
-
-			System.out.println("vuoi continuare ad aggiungere prodotti al tu ordine? y/n");
-			answer=in.nextLine();
-		} while (answer.equals("y"));
-
-		if (items.isEmpty()) {
-			System.out.println("lista vuota");
-			return;
-		}
-		Double tot = 0.0;
-		for (Order_item i : items) {
-			tot += i.getPrice() * i.getQuantity();
-		}
+		BigDecimal total = new BigDecimal(0);
+		LocalDateTime dateTime = LocalDateTime.now();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
 		Order order = new Order();
-		order.setDate(LocalDateTime.now());
-		order.setTotal(tot);
-		order.setUserId(userId);
-
-		EntityTransaction trans = entityManager.getTransaction();
-		trans.begin();
+		order.setUserId(idUser);
+		order.setDate(dateTime);
+		order.setStatus("ok");
+		order.setTotal(total);
 		entityManager.persist(order);
-		trans.commit();
-		List<Order> oList = entityManager.createNativeQuery("SELECT * FROM `order`", Order.class).getResultList();
-		int lastIndex = oList.size() - 1;
-		Order lastOrder = oList.get(lastIndex);
-		Integer orderId = lastOrder.getId();
-		
-		EntityTransaction trans2 = entityManager.getTransaction();
-		trans.begin();
-		for (Order_item i : items) {
-			i.setQuantity(orderId);
-			entityManager.persist(i);
+		Integer orderId = order.getId();
+		for (Integer productId : products.keySet()) {
+			Product product = entityManager.find(Product.class, productId);
+			if (product == null) {
+				throw new IllegalArgumentException("Id prodotto " + productId + " non valido");
+			}
+			Order_item orderItem = new Order_item();
+			orderItem.setOrderId(orderId);
+			orderItem.setProductId(productId);
+			orderItem.setQuantity(products.get(productId));
+			orderItem.setPrice(product.getPrice());
+			entityManager.persist(orderItem);
+			total = total.add(product.getPrice().multiply(BigDecimal.valueOf(products.get(productId))));
 		}
-		trans.commit();
-
-		entityManager.close();
+		order.setTotal(total);
+		entityManager.merge(order);
+		entityTransaction.commit();
 	}
-
+	
+	//___________________________________________________________________
+	public static String getOrderDetails(Integer orderId) {
+		Order order = getOrder(orderId);
+		return getOrderDetails(order);
+	}
+	//___________________________________________________________________
+	private static User getUser(Integer userId) {
+        EntityManager entityManager = SingletonJpa.getInstance();
+        User user = entityManager.find(User.class, userId);
+        return user;
+    }
+	//___________________________________________________________________
+    private static Product getProduct(Integer productId) {
+        EntityManager entityManager = SingletonJpa.getInstance();
+        Product product = entityManager.find(Product.class, productId);
+        return product;
+    }
+	//__________________________________________________________________
+    private static Order getOrder(Integer orderId) {
+    	EntityManager entityManager = SingletonJpa.getInstance();
+        Order order = entityManager.find(Order.class, orderId);
+        return order;
+    }
+	
+	
 	public static void main(String[] args) {
-		
+
 		boolean f = true;
 		String s;
 		do {
@@ -262,10 +228,10 @@ public class MyEcommerceManager { // metodi per gestire db ecommerce
 				selectOrdini();
 				break;
 			case "4":
-				dettaglioOrdine();
+				//dettaglioOrdine();
 				break;
 			case "5":
-				orderCreation();
+				//orderCreation();
 				break;
 			case "6":
 				f = false;

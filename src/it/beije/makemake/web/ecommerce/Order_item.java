@@ -1,5 +1,6 @@
 package it.beije.makemake.web.ecommerce;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -24,7 +25,7 @@ public class Order_item {
 	private Integer productId;
 	
 	@Column
-	private Double price;
+	private BigDecimal price;
 	
 	@Column
 	private Integer quantity;
@@ -60,11 +61,11 @@ public class Order_item {
 		return "Order_item [id=" + id + ", orderId=" + orderId + ", productId=" + productId + ", price=" + price
 				+ ", quantity=" + quantity + "]";
 	}
-	public Double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
-	public void setPrice(Double price) {
-		this.price = price;
+	public void setPrice(BigDecimal bigDecimal) {
+		this.price = bigDecimal;
 	}
 
 	

@@ -1,5 +1,6 @@
 package it.beije.makemake.web.ecommerce;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class Order {
 	private String status;
 	
 	@Column
-	private Double total;
+	private BigDecimal total;
 
 	@OneToMany(cascade=CascadeType.ALL/*, fetch=FetchType.EAGER*/)
 	@JoinColumn(name="id_order")
@@ -77,10 +78,10 @@ public class Order {
 	}
 
 	
-	public Double getTotal() {
+	public BigDecimal getTotal() {
 		return total;
 	}
-	public void setTotal(Double total) {
+	public void setTotal(BigDecimal total) {
 		this.total = total;
 	}
 	@Override
