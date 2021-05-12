@@ -14,6 +14,9 @@ public class EcommerceManager {
 	private static JPASingleton instance=JPASingleton.getInstance();;
 	private static Scanner tastiera = new Scanner(System.in);
 	private static List<User> utenti;
+	public void getsa(){
+		
+	}
 
 	public static void getUsers() {
 		String jplSelect = "SELECT u FROM User as u";
