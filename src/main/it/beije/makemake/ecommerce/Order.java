@@ -23,7 +23,7 @@ public class Order {
 
     private BigDecimal total;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="id_order")
     private List<OrderItem> orderItems;
 

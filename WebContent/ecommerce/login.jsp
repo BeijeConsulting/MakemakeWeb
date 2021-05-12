@@ -24,7 +24,7 @@
         <%
     }
 %>
-<form action="${pageContext.request.contextPath}/ServletHandleLogin" method="post">
+<form action="${pageContext.request.contextPath}/servletlogin" method="post">
     <input type="text" name="username">
     <input type="password" name="password">
     <input type="submit">

@@ -10,23 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <style>
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        td, th {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #dddddd;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
     <title>Orders</title>
 </head>
 <body>
@@ -48,7 +32,7 @@
         <td><%= order.getDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT))%></td>
         <td><%= order.getStatus()%></td>
         <td><%= order.getTotal()%></td>
-        <td><a href="?orderId=<%=order.getId()%>">
+        <td><a href="orderdetails.jsp?orderId=<%=order.getId()%>">
             <button>View order details</button>
         </a></td>
     </tr>

@@ -14,23 +14,47 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link rel="stylesheet" href="style.css">
     <title>Order details</title>
 </head>
 <body>
-<h1>Order details</h1>
+<jsp:useBean id="loggedUser" class="it.beije.makemake.ecommerce.User" scope="session"/>
+
 <%
-//    Integer orderId = Integer.parseInt(request.getParameter("orderId"));
-//    JPAManager jpaManager = JPAManager.getJPAManager();
-//    EntityManager entityManager = jpaManager.getEntityManager();
-//    Order order = ECommerce.getOrder(orderId);
-//    List<OrderItem> orderItemList = order.getOrderItems();
-//    for (OrderItem orderItem :
-//            orderItemList) {
-//        Integer productId = orderItem.getIdProduct();
-//        Product product = ECommerce.getProduct(productId);
-//
-//    }
+    if (loggedUser.getName() == null) {
+        response.sendRedirect("login.jsp");
+    }
 %>
+<h1>Order details</h1>
+<table>
+<tr>
+    <th>Product id</th>
+    <th>Name</th>
+    <th>Brand</th>
+    <th>Price</th>
+    <th>Quantity</th>
+</tr>
+
+<%
+    Integer orderId = Integer.parseInt(request.getParameter("orderId"));
+    Order order = ECommerce.getOrder(orderId);
+    List<OrderItem> orderItemList = order.getOrderItems();
+    System.out.println(orderItemList);
+    for (OrderItem orderItem : orderItemList) {
+        Integer productId = orderItem.getIdProduct();
+        Product product = ECommerce.getProduct(productId);
+        %>
+        <tr>
+            <td><%=productId%></td>
+            <td><%=product.getName()%></td>
+            <td><%=product.getBrand()%></td>
+            <td><%=orderItem.getPrice()%></td>
+            <td><%=orderItem.getQuantity()%></td>
+        </tr>
+        <%
+    }
+%>
+</table>
 
 </body>
 </html>

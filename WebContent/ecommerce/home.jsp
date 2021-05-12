@@ -25,5 +25,9 @@
 <a href="orders.jsp">
     <button>View orders</button>
 </a>
+<br>
+<a href="products.jsp">
+    <button>Create new order</button>
+</a>
 </body>
 </html>
