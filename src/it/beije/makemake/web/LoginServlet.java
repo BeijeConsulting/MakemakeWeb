@@ -1,14 +1,15 @@
 package it.beije.makemake.web;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import it.beije.makemake.User;
+import ecommerce.ControlllerEcommerce;
+import ecommerce.User;
 
 /**
  * Servlet implementation class LoginServlet
@@ -43,22 +44,18 @@ public class LoginServlet extends HttpServlet {
 		}
 		
 		//... SELECT * FROM USER WHERE USERNAME = 'XXX' AND PASSWORD = 'YYY'
-		User user;//carico dati da DB
-		
-		if ("Pluto".equalsIgnoreCase(username) && "1234".equals(password)) {
-			//simulo
-			user = new User();
-			user.setUsername(username);
-			user.setName("Pippo");
-			user.setSurname("Rossi");
+		User user = ControlllerEcommerce.verificaCredenziali(username,password);
+		System.out.println(user);
 
+		if(user != null){
 			session.setAttribute("loggedUser", user);
-
 			response.sendRedirect("benvenuto.jsp");
-
-		} else {
+			
+		}
+		else {
 			session.setAttribute("errore", "CREDENZIALI ERRATE");
 			response.sendRedirect("login.jsp");
+			
 		}
 	
 	}

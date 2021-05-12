@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<jsp:useBean id="loggedUser" class="it.beije.makemake.User" scope="session"/>
+<jsp:useBean id="loggedUser" class="ecommerce.User" scope="session"/>
 
 <%
 if (loggedUser.getUsername() != null) {
@@ -16,7 +16,7 @@ if (loggedUser.getUsername() != null) {
 } else {
 %>
 <h4>COMPLETA I TUOI DATI PER REGISTRARTI</h4>
-<form action="registrazione.jsp" method="post">
+<form action="registrazione" method="post">
   <label for="username">username:</label><br>
   <input type="text" name="username"><br>
   <label for="password">password:</label><br>

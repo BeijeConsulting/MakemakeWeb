@@ -4,11 +4,18 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>LOGIN</title>
+<title>Login</title>
 </head>
 <body>
+<CENTER><H1>Ecommerce </H1>
 
-<%
+<form action="login" method="post">
+  <label for="username">username:</label><br>
+  <input type="text" name="username"><br>
+  <label for="password">password:</label><br>
+  <input type="password" name="password"><br><br>
+  
+  <%
 String errore = (String) session.getAttribute("errore");
 
 if (errore != null) {
@@ -19,14 +26,11 @@ if (errore != null) {
 	session.removeAttribute("errore");
 }
 %>
-
-<form action="login" method="post">
-  <label for="username">username:</label><br>
-  <input type="text" name="username"><br>
-  <label for="password">password:</label><br>
-  <input type="password" name="password"><br><br>
-  <input type="submit" value="Submit">
+  <input type="submit" value="Accedi">
 </form> 
+<form action="registrati.jsp" method="post">
+  <input type="submit" value="Registrati">
+</form> </CENTER>
 
 </body>
 </html>

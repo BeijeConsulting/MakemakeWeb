@@ -6,7 +6,10 @@
 	<persistence-unit name="MakemakeWeb">
 	
 		<class>rubrica.Contatto</class>
-		
+		<class>ecommerce.User</class>
+		<class>ecommerce.Order</class>
+		<class>ecommerce.OrderItem</class>
+		<class>ecommerce.Product</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		
 		<properties>
